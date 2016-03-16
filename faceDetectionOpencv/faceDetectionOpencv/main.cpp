@@ -1,6 +1,7 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////
 //
 //²Î¿¼£ºhttp://opencvexamples.blogspot.com/2013/10/face-detection-using-haar-cascade.html
+//     http://docs.opencv.org/2.4/modules/highgui/doc/reading_and_writing_images_and_video.html
 //
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -17,6 +18,10 @@ using namespace cv;
 
 int main(int argc, char** argv){
 	Mat image;
+
+	//Mat imread(const string& filename, int flags=1 )
+	//@param flags    Flags specifying the color type of a loaded image
+	//              CV_LOAD_IMAGE_ANYDEPTH | CV_LOAD_IMAGE_COLOR | CV_LOAD_IMAGE_GRAYSCALE | >0 | =0 | <0
 	image = imread("images/godfather.jpg", CV_LOAD_IMAGE_COLOR);
 	namedWindow("original", 1);
 	imshow("original", image);
