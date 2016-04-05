@@ -46,7 +46,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>110</y>
+       <y>160</y>
        <width>131</width>
        <height>51</height>
       </rect>
@@ -66,19 +66,6 @@
      </property>
      <property name="text">
       <string>图片人脸检测与识别</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_2">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>160</y>
-       <width>131</width>
-       <height>51</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>PCA算法分析</string>
      </property>
     </widget>
     <widget class="QPushButton" name="pushButton_4">
