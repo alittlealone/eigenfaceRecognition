@@ -6,7 +6,13 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QLabel>
-namespace Ui {class VideoPage;};
+#include <QString>
+#include <QFileDialog>
+
+namespace Ui 
+{
+	class VideoPage;
+};
 
 class VideoPage : public QWidget
 {
@@ -20,9 +26,13 @@ private:
 	Ui::VideoPage *ui;
 
 	QPushButton *open;
+	QString videoPath;
 	QHBoxLayout *upLayout;
 	QVBoxLayout *layout;
 	QLabel *label;
+
+private slots:
+	void setVideoPath();
 };
 
 #endif // VIDEOPAGE_H

@@ -13,7 +13,9 @@ VideoPage::VideoPage(QWidget *parent)
 	upLayout->addWidget(open);
 	upLayout->addStretch();
 
-	label = new QLabel(tr("video goes here..."));
+	label = new QLabel();
+
+	connect(open, SIGNAL(clicked()), this, SLOT(setVideoPath()));
 
 	layout = new QVBoxLayout;
 	layout->addLayout(upLayout);
@@ -27,3 +29,9 @@ VideoPage::~VideoPage()
 	delete ui;
 }
 
+void VideoPage::setVideoPath()
+{
+	this->videoPath = QFileDialog::getOpenFileName(this, tr("Open Video"),
+		"E://", tr("Video Files (*.mkv *.mp4 *.rmvb)"));
+	this->label->setText(videoPath);
+}

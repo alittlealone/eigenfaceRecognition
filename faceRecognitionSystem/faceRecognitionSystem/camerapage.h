@@ -2,6 +2,10 @@
 #define CAMERAPAGE_H
 
 #include <QWidget>
+#include <QPushButton>
+#include <QLabel>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 
 namespace Ui 
 {
@@ -18,6 +22,12 @@ public:
 
 private:
 	Ui::CameraPage *ui;
+
+	QPushButton *open;
+	QPushButton *close;
+	QHBoxLayout *upLayout;
+	QLabel *label;
+	QVBoxLayout *layout;
 };
 
 #endif // CAMERAPAGE_H
