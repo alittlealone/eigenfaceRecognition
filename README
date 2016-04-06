@@ -1,4 +1,6 @@
 All the programs written for graduation project
 Most of them are just parts of the final project
 
-Right now, the final project is 'faceRecognitionSystem'.
+Right now, the final project is 'bishe'.
+
+environment: win8.1 + Qt Creator(Qt5.5) + opencv
