@@ -6,10 +6,12 @@
 #include <QPixmap>
 #include <QMessageBox>
 
+//#include "databasepage.h"
+
 databaseSingle::databaseSingle(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::databaseSingle)
-{
+{    
     ui->setupUi(this);
 
     test = new QGroupBox(tr("test"));
@@ -48,8 +50,23 @@ databaseSingle::~databaseSingle()
 
 void databaseSingle::showTestImage()
 {
-    QString imagePath = QFileDialog::getOpenFileName(this, tr("Open Image"),
-                                            "F://", tr("Image Files (*.png *.jpg *.bmp *.tif)"));
+    QString imagePath;
+
+    switch(qobject_cast<databasePage*>(parentWidget())->comboBox()->currentIndex())
+    {
+    case 0:
+        imagePath = QFileDialog::getOpenFileName(this, tr("Open Image"),
+                                                "database//ATT//", tr("Image Files (*.png *.jpg *.bmp *.tif)"));
+    case 1:
+        imagePath = QFileDialog::getOpenFileName(this, tr("Open Image"),
+                                                "database//YALE//", tr("Image Files (*.png *.jpg *.bmp *.tif)"));
+    case 2:
+        imagePath = QFileDialog::getOpenFileName(this, tr("Open Image"),
+                                                "database//ORL//", tr("Image Files (*.png *.jpg *.bmp *.tif)"));
+    case 3:
+        imagePath = QFileDialog::getOpenFileName(this, tr("Open Image"),
+                                                "database//FERET", tr("Image Files (*.png *.jpg *.bmp *.tif)"));
+    }
 
     if(imagePath.isEmpty())
     {

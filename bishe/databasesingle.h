@@ -9,6 +9,9 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 
+//class databasePage;
+//#include "databasepage.h"
+
 namespace Ui {
 class databaseSingle;
 }
