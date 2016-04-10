@@ -4,12 +4,12 @@
 #include <QWidget>
 #include <QLabel>
 #include <QComboBox>
-#include <QTabWidget>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
+#include <QGroupBox>
+#include <QPushButton>
+#include <QImage>
 
-#include "databasesingle.h"
-#include "databasetotal.h"
 
 namespace Ui {
 class DatabasePage;
@@ -29,12 +29,32 @@ private:
     QLabel *label_choose;
     QComboBox *comboBox;
     QHBoxLayout *upLayout;
+
+    QGroupBox *test;
+    QPushButton *open;
+    QLabel *test_img_label;
+    QImage *test_img;
+    QVBoxLayout *testLayout;
+
+    QGroupBox *result;
+    QPushButton *start;
+    QLabel *result_string1;
+    QLabel *result_string2;
+    QLabel *result_img_label;
+    QImage *result_img;
+    QVBoxLayout *resultLayout;
+
+    QHBoxLayout *singleLayout;
+
+    QGroupBox *total;
+    QLabel *total_string;
+    QVBoxLayout *total_layout;
+    QVBoxLayout *totalLayout;
+
     QVBoxLayout *layout;
-    QTabWidget *tabWidget;
 
-    databaseSingle *singleTab;
-    databaseTotal *totalTab;
-
+private slots:
+    void showTestImage();
 
 };
 

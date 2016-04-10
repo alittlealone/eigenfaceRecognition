@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/test">
+        <file>test/1.BMP</file>
+        <file>test/2.BMP</file>
+        <file>test/3.BMP</file>
+        <file>test/4.BMP</file>
+        <file>test/5.BMP</file>
+        <file>test/6.BMP</file>
+        <file>test/7.BMP</file>
+    </qresource>
+</RCC>

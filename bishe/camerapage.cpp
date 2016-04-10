@@ -1,6 +1,9 @@
 #include "camerapage.h"
 #include "ui_camerapage.h"
 
+#include <QTimer>
+#include <QMessageBox>
+
 CameraPage::CameraPage(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::CameraPage)
@@ -13,7 +16,9 @@ CameraPage::CameraPage(QWidget *parent) :
     upLayout->addWidget(open);
     upLayout->addWidget(close);
 
-    label = new QLabel(tr("video goes here..."));
+    connect(open, SIGNAL(clicked()), this, SLOT(playVideo()));
+
+    label = new QLabel();
 
     layout = new QVBoxLayout;
     layout->addLayout(upLayout);
@@ -25,4 +30,33 @@ CameraPage::CameraPage(QWidget *parent) :
 CameraPage::~CameraPage()
 {
     delete ui;
+}
+
+void CameraPage::playVideo()
+{
+    capture = new cv::VideoCapture(0);
+    timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(displayFrame())); // connect the timer to the widget and to the method that will execute after every refresh
+    timer->start(40); // set the time of refreshment and start the timer
+}
+
+void CameraPage::displayFrame()
+{
+    // read one frame into frame
+    *capture >> frame;
+
+    if (frame.cols == 0) {
+         QMessageBox::information(this, tr("error"), tr("error!"));
+    }
+
+    // resize the Mat to the same size of the label
+    cv::resize(frame, frame, cv::Size(label->width(), label->height()));
+    // convert the Mat from BGR to RGB
+    cv::cvtColor(frame,frame,CV_BGR2RGB);
+    // create Qimage from Mat
+    QImage img= QImage((uchar*) frame.data, frame.cols, frame.rows, frame.step, QImage::Format_RGB888);
+    // create Qpixmap from Qimage
+    QPixmap pix = QPixmap::fromImage(img);
+    // display the pixmap on the label
+    label->setPixmap(pix);
 }

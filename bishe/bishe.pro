@@ -68,18 +68,14 @@ SOURCES += main.cpp\
     picturepage.cpp \
     videopage.cpp \
     databasepage.cpp \
-    camerapage.cpp \
-    databasesingle.cpp \
-    databasetotal.cpp
+    camerapage.cpp
 
 HEADERS  += \
     videopage.h \
     picturepage.h \
     widget.h \
     databasepage.h \
-    camerapage.h \
-    databasesingle.h \
-    databasetotal.h
+    camerapage.h
 
 FORMS    += widget.ui \
     picturepage.ui \
@@ -88,3 +84,6 @@ FORMS    += widget.ui \
     camerapage.ui \
     databasesingle.ui \
     databasetotal.ui
+
+RESOURCES += \
+    database/ATT/att.qrc

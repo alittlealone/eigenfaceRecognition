@@ -6,8 +6,6 @@
 #include <QPixmap>
 #include <QMessageBox>
 
-//#include "databasepage.h"
-
 databaseSingle::databaseSingle(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::databaseSingle)

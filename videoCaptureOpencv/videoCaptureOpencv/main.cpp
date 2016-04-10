@@ -11,18 +11,21 @@ int main(int, char**)
 	// open the default camera
 	//VideoCapture cap(0);
 	//open a video, just pass the video file name
-	VideoCapture cap("F:/Apple Steve Jobs The Crazy Ones - NEVER BEFORE AIRED 1997 - (Original Post).mp4");
-
-	if (!cap.isOpened())  // check if we succeeded
+	
+	VideoCapture *cap1;
+	cap1 = new VideoCapture(0);
+	//VideoCapture cap("F:/Apple Steve Jobs The Crazy Ones - NEVER BEFORE AIRED 1997 - (Original Post).mp4");
+	/**
+	if (! *cap1.isOpened())  // check if we succeeded
 		return -1;
-
+	**/
 	Mat edges;
 	namedWindow("edges", 1);
 	for (;;)
 	{
 		Mat frame;
 		while (frame.empty())
-			cap >> frame;
+			*cap1 >> frame;
 		cvtColor(frame, edges, CV_BGR2GRAY);
 		//GaussianBlur(edges, edges, Size(7, 7), 1.5, 1.5);
 		//Canny(edges, edges, 0, 30, 3);
