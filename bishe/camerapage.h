@@ -9,6 +9,7 @@
 
 #include <opencv2/highgui/highgui.hpp> //to load video
 #include <opencv2/imgproc/imgproc.hpp> //to manipulate
+#include <opencv2/opencv.hpp>
 
 namespace Ui {
 class CameraPage;
@@ -32,7 +33,8 @@ private:
     QVBoxLayout *layout;
 
     QTimer *timer; // the timer that will refresh the widget
-    cv::VideoCapture *capture;  // to capture video
+    CvCapture *capture;
+//    cv::VideoCapture *capture;  // to capture video
     cv::Mat frame; // the frame that we will copy readed images from video
 
 private slots:

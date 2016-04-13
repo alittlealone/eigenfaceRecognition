@@ -32,5 +32,8 @@
     <ClCompile Include="bitmap.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="pca-mat.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <math.h>
 
-
+//a.t();
 //转置
 vector<vector<double>> transpose(vector<double> a) {
 	vector<vector<double>> r;
@@ -102,6 +102,7 @@ vector<double> operator*(vector<double> w, vector<vector<double>> x) {
 	return r;
 }
 
+//x * y;
 vector<vector<double>> operator*(vector<vector<double>> x, vector<vector<double>> y) {
 	vector<vector<double>> r;
 	vector<vector<double>> z = transpose(y);
@@ -182,6 +183,17 @@ void pca::setAverageFace() {
 	this->averageFace = means;
 }
 
+/**
+void pca::setAverageFace() {
+	Mat sum = data[0];
+	int n = data.size();
+	for(int i = 1; i < n; i++) {
+		sum += data[i];
+	}
+	this->averageFace = sum / n;
+}
+**/
+
 //零均值化
 void pca::setZeroMeanVec() {
 	vector<vector<double>> rr;
@@ -197,6 +209,17 @@ void pca::setZeroMeanVec() {
 	}
 	this->zeroMeanVec = transpose(rr);
 }
+
+/**
+void pca::setZeroMeanVec() {
+	vector<Mat> r;
+	int n = r.size();
+	for(int i = 0; i < n; i++) {
+		r.push_back(data[i] - averageFace);
+	}
+	this->zeroMeanVec = r;
+}
+**/
 
 //!!!!!!
 //直接求N^2 * N^2矩阵的特征值和特征向量，效率太低且占用内存太大
@@ -401,6 +424,12 @@ pca::pca(vector<vector<int>> data) {
 	this->data = data;
 }
 
+/**
+pca::pca(vector<Mat> data) {
+	this->data = data;
+}
+**/
+
 pca::~pca(){}
 
 //string pca::getTestFile() {
@@ -415,13 +444,31 @@ vector<vector<int>> pca::getData() {
 	return data;
 }
 
+/**
+vector<Mat> pca::getData() {
+	return data;
+}
+**/
+
 void pca::setData(vector<vector<int>> data) {
 	this->data = data;
 }
 
+/**
+void pca::setData(vector<Mat> data) {
+	this->data = data;
+}
+**/
+
 void pca::setTestData(vector<int> data) {
 	this->testData = data;
 }
+
+/**
+void pca::setTestData(Mat data) {
+	this->testData = data;
+}
+**/
 
 void pca::setLabel(string path) {
 	vector<int> label;
@@ -434,9 +481,28 @@ void pca::setLabel(string path) {
 		cout << "没有该数据库所对应的label!" << endl;
 }
 
+/**
+void pca::setLabel(string path) {
+	vector<int> label;
+	if(path == "./images/ATT") {
+		for(int i = 0; i < 63; i++)
+			label.push_back(i / 9 + 1);
+		this->label = label;
+	}
+	else
+		cout << "没有该数据库对应的label！" << endl;
+}
+**/
+
 int pca::getPredictedLabel() {
 	return this->predictedLabel;
 }
+
+/**
+int pca::getPredictedLabel() {
+	return this->predictedLabel;
+}
+**/
 
 //vector<vector<double>> pca::readData(string fileName) {
 //	ifstream in;
@@ -512,6 +578,13 @@ void pca::train() {
 	this->averageProjectedFace = averageProjectedFace;
 }
 
+/**
+void pca::train() {
+	setAverageFace();
+	setZeroMeanVec();
+
+}
+**/
 
 //先假设输入的图片一定是人脸
 //并假设输入的人脸图片一定是训练集中其中一个人的脸

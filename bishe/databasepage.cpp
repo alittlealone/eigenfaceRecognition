@@ -33,6 +33,7 @@ DatabasePage::DatabasePage(QWidget *parent) :
     test->setLayout(testLayout);
 
     connect(open, SIGNAL(clicked()), this, SLOT(showTestImage()));
+    connect(open, SIGNAL(clicked()), this, SLOT(train()));
 
     result = new QGroupBox(tr("result"));
     start = new QPushButton(tr("Start"));
@@ -41,10 +42,13 @@ DatabasePage::DatabasePage(QWidget *parent) :
     result_img_label = new QLabel();
 
     resultLayout = new QVBoxLayout;
+    resultLayout->addWidget(start);
     resultLayout->addWidget(result_string1);
     resultLayout->addWidget(result_string2);
     resultLayout->addWidget(result_img_label);
     result->setLayout(resultLayout);
+
+    connect(start, SIGNAL(clicked()), this, SLOT(predict()));
 
     singleLayout = new QHBoxLayout;
     singleLayout->addWidget(test);
@@ -113,4 +117,25 @@ void DatabasePage::showTestImage()
         }
         this->test_img_label->setPixmap(QPixmap::fromImage(*test_img));
     }
+}
+
+
+void train()
+{
+//    vector<Mat> images;
+//    vector<int> labels;
+
+//    if (images.size() <= 1) {
+//        string error_message = "This demo needs at least 2 images to work. Please add more images to your data set!";
+//        CV_Error(CV_StsError, error_message);
+//    }
+//    int height = images[0].rows;
+
+//    Ptr<FaceRecognizer> model = createEigenFaceRecognizer();
+//    model->train(images, labels);
+}
+
+int predict()
+{
+//    int predictedLabel = model->predict(testSample);
 }

@@ -42,6 +42,7 @@ private:
     QLabel *result_string2;
     QLabel *result_img_label;
     QImage *result_img;
+    int predict_label;
     QVBoxLayout *resultLayout;
 
     QHBoxLayout *singleLayout;
@@ -55,6 +56,8 @@ private:
 
 private slots:
     void showTestImage();
+    void train();
+    int predict();
 
 };
 

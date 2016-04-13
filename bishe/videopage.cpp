@@ -75,29 +75,25 @@ void VideoPage::displayFrame()
         cv::Rect face_i = faces[i];
         cv::rectangle(frame, face_i, cv::Scalar(255, 0, 255), 1, 8, 0);
 
-        cv::Mat face = cv::gray(face_i);
-        cv::Mat face_resized;
+//        cv::Mat face = gray(face_i);
+//        cv::Mat face_resized;
 
-        // Get the height from the first image. We'll need this
-        // later in code to reshape the images to their original
-        // size AND we need to reshape incoming faces to this size:
-        //int im_width = images[0].cols;
-        //int im_height = images[0].rows;
-        cv::resize(face, face_resized, cv::Size(im_width, im_height), 1.0, 1.0, INTER_CUBIC);
-        //Ptr<FaceRecognizer> model = createFisherFaceRecognizer();
-        int prediction = model->predict(face_resized);
+//        // Get the height from the first image. We'll need this
+//        // later in code to reshape the images to their original
+//        // size AND we need to reshape incoming faces to this size:
+//        //int im_width = images[0].cols;
+//        //int im_height = images[0].rows;
+//        cv::resize(face, face_resized, cv::Size(im_width, im_height), 1.0, 1.0, INTER_CUBIC);
+//        //Ptr<FaceRecognizer> model = createFisherFaceRecognizer();
+//        int prediction = model->predict(face_resized);
 
-        // Create the text we will annotate the box with:
-        string box_text = format("Prediction = %d", prediction);
-        // Calculate the position for annotated text (make sure we don't
-        // put illegal values in there):
-        int pos_x = std::max(face_i.tl().x - 10, 0);
-        int pos_y = std::max(face_i.tl().y - 10, 0);
-        // And now put it into the image:
-        putText(original, box_text, Point(pos_x, pos_y), FONT_HERSHEY_PLAIN, 1.0, CV_RGB(0, 255, 0), 2.0);
-
-
-        //recognition ----- core function
+//        // Create the text we will annotate the box with:
+//        string box_text = format("Prediction = %d", prediction);
+//        // Calculate the position for annotated text (make sure we don't put illegal values in there):
+//        int pos_x = std::max(face_i.tl().x - 10, 0);
+//        int pos_y = std::max(face_i.tl().y - 10, 0);
+//        // And now put it into the image:
+//        putText(original, box_text, Point(pos_x, pos_y), FONT_HERSHEY_PLAIN, 1.0, CV_RGB(0, 255, 0), 2.0);
 
     }
 

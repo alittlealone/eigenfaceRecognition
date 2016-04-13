@@ -29,12 +29,15 @@ CameraPage::CameraPage(QWidget *parent) :
 
 CameraPage::~CameraPage()
 {
+    timer->stop();
+    cvReleaseCapture(&capture);
     delete ui;
 }
 
 void CameraPage::playVideo()
 {
-    capture = new cv::VideoCapture(0);
+//    capture = new cv::VideoCapture(0);
+    capture = cvCaptureFromCAM(0);
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(displayFrame())); // connect the timer to the widget and to the method that will execute after every refresh
     timer->start(40); // set the time of refreshment and start the timer
@@ -43,7 +46,8 @@ void CameraPage::playVideo()
 void CameraPage::displayFrame()
 {
     // read one frame into frame
-    *capture >> frame;
+//    *capture >> frame;
+    frame = cvQueryFrame(capture);
 
     if (frame.cols == 0) {
          QMessageBox::information(this, tr("error"), tr("error!"));
