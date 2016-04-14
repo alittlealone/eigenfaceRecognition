@@ -14,10 +14,19 @@ bool mySort(double a, double b) {
 
 void pca::setAverageFace() {
 	Mat sum = data.row(0);
+
+	ofstream fout("./sumFace.txt");
+	for (int i = 0; i < sum.cols; i++)
+		fout << sum.at<float>(0, i) << " ";
+
 	for(int i = 1; i < number; i++) {
 		sum += data.row(i);
 	}
 	this->averageFace = sum / number;
+
+	/*ofstream fout("./sumFace.txt");
+	for (int i = 0; i < sum.cols; i++)
+		fout << sum.at<float>(0, i) << " ";*/
 }
 
 void pca::setZeroMeanVec() {
@@ -26,6 +35,14 @@ void pca::setZeroMeanVec() {
 		r.row(i) = data.row(i) - averageFace;
 	}
 	this->zeroMeanVec = r;
+
+	ofstream fout("./zeroMeanVec.txt");
+	for (int i = 0; i < number; i++) {
+		for (int j = 0; j < pixels; j++)
+			fout << r.at<float>(i, j) << " ";
+		fout << endl;
+	}
+
 }
 
 
@@ -201,16 +218,15 @@ Mat eigenSpace(Mat eigenVector, int n) {
 //}
 
 int pca::chooseN(Mat eigenValue) {
-	double sum = 0;
-	//double testrr = eigenValue.at<double>(0, 0);
-	cout << eigenValue.at<double>(0, 0) << endl;
-	double testr = eigenValue.at<double>(1);
-	for (int i = 0; i < eigenValue.rows; i++)
-		sum += eigenValue.at<double>(i, 0);
+	float sum = 0;
+	for (int i = 0; i < eigenValue.rows; i++) {
+		cout << i << "　" << eigenValue.at<float>(i, 0) << endl;
+		sum += eigenValue.at<float>(i, 0);
+	}
 	int k;
-	double sumK = 0;
+	float sumK = 0;
 	for (k = 0; k < eigenValue.rows; k++) {
-		sumK += eigenValue.at<double>(k, 0);
+		sumK += eigenValue.at<float>(k, 0);
 		if (sumK >= THRESHOLD * sum)
 			break;
 	}
@@ -233,10 +249,10 @@ int pca::chooseN(Mat eigenValue) {
 //}
 
 double euclidianDistance(Mat a, Mat b) {
-	double r = 0;
+	float r = 0;
 	//可能不对，不知道数据结构！！！
 	for (int i = 0; i < a.cols; i++) {
-		r += (a.at<double>(0, i) - b.at<double>(0, i)) * (a.at<double>(0, i) - b.at<double>(0, i));
+		r += (a.at<float>(0, i) - b.at<float>(0, i)) * (a.at<float>(0, i) - b.at<float>(0, i));
 	}
 	return r;
 }
@@ -285,6 +301,42 @@ void getFiles(string path, string exd, vector<string>& files) {
 		cout << -1 << endl;
 }
 
+
+static Mat asRowMatrix(InputArrayOfArrays src, int rtype, double alpha = 1, double beta = 0) {
+	// make sure the input data is a vector of matrices or vector of vector
+	if (src.kind() != _InputArray::STD_VECTOR_MAT && src.kind() != _InputArray::STD_VECTOR_VECTOR) {
+		string error_message = "The data is expected as InputArray::STD_VECTOR_MAT (a std::vector<Mat>) or _InputArray::STD_VECTOR_VECTOR (a std::vector< vector<...> >).";
+		CV_Error(CV_StsBadArg, error_message);
+	}
+	// number of samples
+	size_t n = src.total();
+	// return empty matrix if no matrices given
+	if (n == 0)
+		return Mat();
+	// dimensionality of (reshaped) samples
+	size_t d = src.getMat(0).total();
+	// create data matrix
+	Mat data((int)n, (int)d, rtype);
+	// now copy data
+	for (unsigned int i = 0; i < n; i++) {
+		// make sure data can be reshaped, throw exception if not!
+		if (src.getMat(i).total() != d) {
+			string error_message = format("Wrong number of elements in matrix #%d! Expected %d was %d.", i, d, src.getMat(i).total());
+			CV_Error(CV_StsBadArg, error_message);
+		}
+		// get a hold of the current row
+		Mat xi = data.row(i);
+		// make reshape happy by cloning for non-continuous matrices
+		if (src.getMat(i).isContinuous()) {
+			src.getMat(i).reshape(1, 1).convertTo(xi, rtype, alpha, beta);
+		}
+		else {
+			src.getMat(i).clone().reshape(1, 1).convertTo(xi, rtype, alpha, beta);
+		}
+	}
+	return data;
+}
+
 pca::pca(string filePath) {
 	vector<string> files;
 	getFiles(filePath, "BMP", files);
@@ -298,14 +350,46 @@ pca::pca(string filePath) {
 	}
 	this->originalData = originalData;
 
+	/*Mat a = originalData[0];
+	ofstream fout("./originalData0.txt");*/
+	/*for (int i = 0; i < a.rows; i++) {
+		for (int j = 0; j < a.cols; j++)
+			fout << a.at<unsigned char>(i, j) << " ";
+		fout << endl;
+	}*/
+	/*fout << ' ' << a << endl;*/
+
 	number = originalData.size();
 	pixels = originalData[0].rows * originalData[0].cols;
 	
-	Mat data(number, pixels, CV_32FC1);
+	/*Mat data(number, pixels, CV_32FC1);*/
+
+	/*Mat b = originalData[0].reshape(0, 1);
+	data.row(0) = b;
+	ofstream fout("./data.txt");
+	fout << ' ' << b << endl;*/
+
+	vector<Mat> data_tmp;
 	for (int i = 0; i < number; i++) {
-		Mat data_row = data.row(i);
-		originalData[i].reshape(0, 1).row(0).convertTo(data_row, CV_32FC1, 1 / 255.);
+		/*Mat data_row = data.row(i);
+		originalData[i].reshape(1, 1).row(0).convertTo(data_row, CV_32FC1, 1 / 255.);*/
+		Mat data_row = originalData[i].reshape(0, 1);
+		data_tmp.push_back(data_row);
 	}
+	Mat data = asRowMatrix(data_tmp, CV_32FC1);
+
+	ofstream fout("./data.txt");
+	fout << ' ' << data.row(0) << endl;
+
+	/*for (int i = 0; i < number; i++) {
+		for (int j = 0; j < pixels; j++) {
+			data.at<unsigned char>(i, j) = data_tmp[i].at<unsigned char>(0, j);
+		}
+	}*/
+
+	//Mat a = originalData[0].reshape(0, 1);
+	/*ofstream fout("./data.txt");
+	fout << ' ' << data.row(0) << endl;*/
 
 	this->data = data;
 }
@@ -364,6 +448,12 @@ void pca::train() {
 	if (!ifGetEigen)
 		cout << "未能求出特征值和特征向量！";
 	else {
+		for (int i = 0; i < eigenVector.rows; i++) {
+			for (int j = 0; j < eigenVector.cols; j++) {
+				cout << eigenVector.at<float>(i, j) << " ";
+			}
+			cout << endl;
+		}
 		this->selectedEigen = eigenSpace(eigenVector, chooseN(eigenValue));
 		cout << "Maybe succeed!" << endl;
 	}
