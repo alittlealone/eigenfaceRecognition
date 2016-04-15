@@ -6,6 +6,9 @@
 #include <QPixmap>
 #include <QMessageBox>
 
+#include <vector>
+#include <string>
+
 DatabasePage::DatabasePage(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::DatabasePage)
@@ -79,29 +82,27 @@ DatabasePage::~DatabasePage()
 
 void DatabasePage::showTestImage()
 {
-    QString imagePath;
-
     switch(this->comboBox->currentIndex())
     {
     case 0:
-        imagePath = QFileDialog::getOpenFileName(this, tr("Open Image"),
+        test_img_path = QFileDialog::getOpenFileName(this, tr("Open Image"),
                                                  "F:/a/projects/bishe/database/ATT/test", tr("Image Files (*.png *.jpg *.bmp *.tif)"));
         break;
     case 1:
-        imagePath = QFileDialog::getOpenFileName(this, tr("Open Image"),
+        test_img_path = QFileDialog::getOpenFileName(this, tr("Open Image"),
                                                  "F:/a/projects/bishe/database/YALE/test", tr("Image Files (*.png *.jpg *.bmp *.tif)"));
         break;
     case 2:
-        imagePath = QFileDialog::getOpenFileName(this, tr("Open Image"),
+        test_img_path = QFileDialog::getOpenFileName(this, tr("Open Image"),
                                                  "database//ORL//", tr("Image Files (*.png *.jpg *.bmp *.tif)"));
         break;
     case 3:
-        imagePath = QFileDialog::getOpenFileName(this, tr("Open Image"),
+        test_img_path = QFileDialog::getOpenFileName(this, tr("Open Image"),
                                                  "database//FERET", tr("Image Files (*.png *.jpg *.bmp *.tif)"));
         break;
     }
 
-    if(imagePath.isEmpty())
+    if(test_img_path.isEmpty())
     {
         return;
     }
@@ -109,7 +110,7 @@ void DatabasePage::showTestImage()
     {
         test_img=new QImage;
 
-        if(!(test_img->load(imagePath)))
+        if(!(test_img->load(test_img_path)))
         {
             QMessageBox::information(this, tr("error"), tr("Failed to open this image!"));
             delete test_img;
@@ -120,22 +121,18 @@ void DatabasePage::showTestImage()
 }
 
 
-void train()
+void DatabasePage::train()
 {
-//    vector<Mat> images;
-//    vector<int> labels;
-
-//    if (images.size() <= 1) {
-//        string error_message = "This demo needs at least 2 images to work. Please add more images to your data set!";
-//        CV_Error(CV_StsError, error_message);
-//    }
-//    int height = images[0].rows;
-
-//    Ptr<FaceRecognizer> model = createEigenFaceRecognizer();
-//    model->train(images, labels);
+    string filePath = "F:/a/projects/pcaMat/pcaMat/images/ATT";
+    Mat test = imread(test_img_path.toStdString(), 0);
+    pcaModel = new pca(filePath);
+    pcaModel->setTestData(test);
+    pcaModel->train();
 }
 
-int predict()
+void DatabasePage::predict()
 {
-//    int predictedLabel = model->predict(testSample);
+    pcaModel->predict();
+    int predict = pcaModel->getPredictedLabel();
+    result_img_label->setText(QString::number(predict));
 }

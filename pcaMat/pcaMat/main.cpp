@@ -81,7 +81,7 @@ int main() {
 	test->closeFile();*/
 
 	pca *pcaModel = new pca(filePath);
-	test = test.reshape(0, 1);
+	/*test = test.reshape(0, 1);*/
 	pcaModel->setTestData(test);
 	//model->train(images, labels);
 

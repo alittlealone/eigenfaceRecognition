@@ -431,6 +431,7 @@ void pca::train() {
 //并假设输入的人脸图片一定是训练集中其中一个人的脸
 void pca::predict() {
 	//把testData降维
+	testData = testData.reshape(0, 1);
 	testData.convertTo(testData, CV_32FC1, 1 / 255.);
 
 	Mat projectedTestFace = (testData - averageFace) * selectedEigen.t();//1*10304 * 10304*56

@@ -9,7 +9,9 @@
 #include <QGroupBox>
 #include <QPushButton>
 #include <QImage>
+#include <QString>
 
+#include "pca.h"
 
 namespace Ui {
 class DatabasePage;
@@ -31,6 +33,7 @@ private:
     QHBoxLayout *upLayout;
 
     QGroupBox *test;
+    QString test_img_path;
     QPushButton *open;
     QLabel *test_img_label;
     QImage *test_img;
@@ -54,10 +57,12 @@ private:
 
     QVBoxLayout *layout;
 
+    pca *pcaModel;
+
 private slots:
     void showTestImage();
     void train();
-    int predict();
+    void predict();
 
 };
 

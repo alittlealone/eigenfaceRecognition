@@ -68,14 +68,16 @@ SOURCES += main.cpp\
     picturepage.cpp \
     videopage.cpp \
     databasepage.cpp \
-    camerapage.cpp
+    camerapage.cpp \
+    pca.cpp
 
 HEADERS  += \
     videopage.h \
     picturepage.h \
     widget.h \
     databasepage.h \
-    camerapage.h
+    camerapage.h \
+    pca.h
 
 FORMS    += widget.ui \
     picturepage.ui \
