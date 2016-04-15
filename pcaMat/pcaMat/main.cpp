@@ -75,7 +75,7 @@ int main() {
 
 	//get test set
 	/*bitmap *test = new bitmap("./test/2.bmp");*/
-	Mat test = imread("./test/2.bmp");
+	Mat test = imread("./test/7.bmp", 0);
 	//bitmap *test = new bitmap("C:/Users/Administrator/Desktop/ATT/s1/1.bmp");
 	/*vector<int> testData = test->getData();
 	test->closeFile();*/
@@ -92,7 +92,7 @@ int main() {
 	pcaModel->predict();
 
 	//cout << "分类为： " << pcaModel->getPredictedLabel() << endl;
-	cout << "路径为‘./test/2.bmp’的图片被预测的分类为 " << pcaModel->getPredictedLabel() << endl;
+	cout << "路径为‘./test/7.bmp’的图片被预测的分类为 " << pcaModel->getPredictedLabel() << endl;
 
 	finish = clock();
 

@@ -350,6 +350,7 @@ bool pca::eigen(vector<vector<double>> c, vector<vector<double>>& eigenVector, v
 		eigenMap[eigenValue[i]] = i;
 	}
 
+	//10304 * 63  *  63 * 63 = 10304 * 63
 	eigenVector = transpose(zeroMeanVec) * eigenVector;
 
 	sort(eigenValue.begin(), eigenValue.end(), mySort);
@@ -530,14 +531,14 @@ void pca::train() {
 	setAverageFace();
 	setZeroMeanVec();
 	//vector<vector<double>> covVec = cov(zeroMeanVec);
-	vector<vector<double>> covVec = zeroMeanVec * transpose(zeroMeanVec);
+	vector<vector<double>> covVec = zeroMeanVec * transpose(zeroMeanVec);//63 * 10304  *  10304 * 63 = 63 * 63
 	vector<vector<double>> eigenVector;
 	vector<double> eigenValue;
 	bool ifGetEigen = eigen(covVec, eigenVector, eigenValue);
 	if (!ifGetEigen)
 		cout << "未能求出特征值和特征向量！";
 	else {
-		this->selectedEigen = eigenSpace(eigenVector, chooseN(eigenValue));
+		this->selectedEigen = eigenSpace(eigenVector, chooseN(eigenValue));//10304 * 56
 		cout << "Maybe succeed!" << endl;
 	}
 	
@@ -545,7 +546,7 @@ void pca::train() {
 	cout << "selectedEigen[0].size() = " << selectedEigen[0].size() << endl;
 	cout << endl;*/
 
-	this->projectedFace = zeroMeanVec * selectedEigen;
+	this->projectedFace = zeroMeanVec * selectedEigen;//63 * 10304  *  63 * 56
 
 	/*cout << "projectedFace.size() = " << projectedFace.size() << endl;
 	cout << "projectedFace[0].size() = " << projectedFace[0].size() << endl;*/

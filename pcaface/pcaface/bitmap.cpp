@@ -29,7 +29,8 @@ bitmap::bitmap(string fileName) {
 vector<int> bitmap::getData() {
 	file.seekg(0, std::ios::end);
 	streampos fileLength = file.tellg();
-	file.seekg(fileHeader->bfOffBits, std::ios::beg);
+	//file.seekg(fileHeader->bfOffBits, std::ios::beg);
+	file.seekg(0, std::ios::beg);
 
 	vector<vector<int>> originalData;
 	vector<int> a;

@@ -1,9 +1,20 @@
-﻿生成启动时间为 2016/4/12 星期二 上午 8:54:53。
+﻿生成启动时间为 2016/4/15 星期五 下午 9:35:25。
      1>项目“F:\a\projects\pcaface\pcaface\pcaface.vcxproj”在节点 2 上(Build 个目标)。
-     1>Link:
+     1>ClCompile:
+         D:\Visual Stdio\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt bitmap.cpp
+         bitmap.cpp
+     1>f:\a\projects\pcaface\pcaface\bitmap.cpp(3): warning C4103: “f:\a\projects\pcaface\pcaface\bitmap.cpp”: 包括标题后更改了对齐方式，可能是由于缺少 #pragma pack(pop)
+     1>f:\a\projects\pcaface\pcaface\bitmap.cpp(16): warning C4244: “参数”: 从“std::streamoff”转换到“unsigned int”，可能丢失数据
+     1>f:\a\projects\pcaface\pcaface\bitmap.cpp(25): warning C4551: 缺少参数列表的函数调用
+     1>f:\a\projects\pcaface\pcaface\bitmap.cpp(55): warning C4018: “<”: 有符号/无符号不匹配
+       Link:
+         D:\Visual Stdio\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"F:\a\projects\pcaface\Debug\pcaface.exe" /INCREMENTAL /NOLOGO opencv_calib3d2410d.lib opencv_contrib2410d.lib opencv_core2410d.lib opencv_features2d2410d.lib opencv_flann2410d.lib opencv_gpu2410d.lib opencv_highgui2410d.lib opencv_imgproc2410d.lib opencv_legacy2410d.lib opencv_ml2410d.lib opencv_nonfree2410d.lib opencv_objdetect2410d.lib opencv_ocl2410d.lib opencv_photo2410d.lib opencv_stitching2410d.lib opencv_superres2410d.lib opencv_ts2410d.lib opencv_video2410d.lib opencv_videostab2410d.lib opencv_calib3d2410.lib opencv_contrib2410.lib opencv_core2410.lib opencv_features2d2410.lib opencv_flann2410.lib opencv_gpu2410.lib opencv_highgui2410.lib opencv_imgproc2410.lib opencv_legacy2410.lib opencv_ml2410.lib opencv_nonfree2410.lib opencv_objdetect2410.lib opencv_ocl2410.lib opencv_photo2410.lib opencv_stitching2410.lib opencv_superres2410.lib opencv_ts2410.lib opencv_video2410.lib opencv_videostab2410.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"F:\a\projects\pcaface\Debug\pcaface.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"F:\a\projects\pcaface\Debug\pcaface.lib" /MACHINE:X86 Debug\bitmap.obj
+         Debug\main.obj
+         "Debug\pca-mat.obj"
+         Debug\pca.obj
          pcaface.vcxproj -> F:\a\projects\pcaface\Debug\pcaface.exe
      1>已完成生成项目“F:\a\projects\pcaface\pcaface\pcaface.vcxproj”(Build 个目标)的操作。
 
 生成成功。
 
-已用时间 00:00:00.13
+已用时间 00:00:01.25
