@@ -65,7 +65,6 @@ int pca::chooseN(Mat eigenValue) {
 
 double euclidianDistance(Mat a, Mat b) {
     float r = 0;
-    //可能不对，不知道数据结构！！！
     for (int i = 0; i < a.cols; i++) {
         r += (a.at<float>(0, i) - b.at<float>(0, i)) * (a.at<float>(0, i) - b.at<float>(0, i));
     }
@@ -169,11 +168,19 @@ void pca::setData(Mat data) {
 
 void pca::setLabel(string path) {
     vector<int> label;
-    if (path == "./images/ATT") {
+    if (path == "F:/a/projects/pcaMat/pcaMat/images/ATT") {
         for (int i = 0; i < 63; i++)
             label.push_back(i / 9 + 1);
-        this->label = label;
     }
+    else if(path == "F:/a/projects/pcaMat/pcaMat/images/YALE") {
+        for (int i = 0; i < 165; i++)
+            label.push_back(i / 11 + 1);
+    }
+    else if(path == "F:/a/projects/pcaMat/pcaMat/images/ORL") {
+        for (int i = 0; i < 63; i++)
+            label.push_back(i / 10 + 1);
+    }
+    this->label = label;
 //    else
 //        QMessageBox::information(this, tr("error"), tr("Failed to set label!"));;
 }
@@ -224,6 +231,8 @@ void pca::train() {
     }
 
     this->averageProjectedFace = averageProjectedFace;
+
+    QMessageBox::information(this, tr("finish"), tr("Training finish!"));
 }
 
 //先假设输入的图片一定是人脸
@@ -234,8 +243,6 @@ void pca::predict() {
     testData.convertTo(testData, CV_32FC1, 1 / 255.);
 
     Mat projectedTestFace = (testData - averageFace) * selectedEigen.t();//1*10304 * 10304*56
-    ofstream f("./projectedTestFace.txt");
-    f << projectedTestFace << endl;
     //求testData和每个training中的降过维的face之间的欧拉距离
     map<int, double> distanceMap;
     map<int, Mat>::iterator it;

@@ -30,6 +30,9 @@ private:
 
     QLabel *label_choose;
     QComboBox *comboBox;
+    QPushButton *setPath;
+    QString databasePath;
+    QPushButton *trainButton;
     QHBoxLayout *upLayout;
 
     QGroupBox *test;
@@ -60,7 +63,9 @@ private:
     pca *pcaModel;
 
 private slots:
+    void setDatabasePath();
     void showTestImage();
+    void setLabel();
     void train();
     void predict();
 

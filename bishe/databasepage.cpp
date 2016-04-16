@@ -20,11 +20,18 @@ DatabasePage::DatabasePage(QWidget *parent) :
     comboBox->addItem(tr("AT&T"));
     comboBox->addItem(tr("Yale"));
     comboBox->addItem(tr("ORL"));
-    comboBox->addItem(tr("FERET"));
+    setPath = new QPushButton(tr("setPath"));
+    trainButton = new QPushButton(tr("train"));
 
     upLayout = new QHBoxLayout;
     upLayout->addWidget(label_choose);
     upLayout->addWidget(comboBox);
+    upLayout->addWidget(setPath);
+    upLayout->addWidget(trainButton);
+
+    connect(setPath, SIGNAL(clicked()), this, SLOT(setDatabasePath()));
+    connect(setPath, SIGNAL(clicked()), this, SLOT(setLabel());
+    connect(trainButton, SIGNAL(clicked()), this, SLOT(train()));
 
     test = new QGroupBox(tr("test"));
     open = new QPushButton(tr("Open"));
@@ -36,7 +43,6 @@ DatabasePage::DatabasePage(QWidget *parent) :
     test->setLayout(testLayout);
 
     connect(open, SIGNAL(clicked()), this, SLOT(showTestImage()));
-    connect(open, SIGNAL(clicked()), this, SLOT(train()));
 
     result = new QGroupBox(tr("result"));
     start = new QPushButton(tr("Start"));
@@ -80,28 +86,45 @@ DatabasePage::~DatabasePage()
     delete ui;
 }
 
+void DatabasePage::setDatabasePath()
+{
+    switch(this->comboBox->currentIndex())
+    {
+    case 0:
+        databasePath = "F:/a/projects/pcaMat/pcaMat/images/ATT";
+        break;
+    case 1:
+        databasePath = "F:/a/projects/pcaMat/pcaMat/images/YALE";
+        break;
+    case 2:
+        databasePath = "F:/a/projects/pcaMat/pcaMat/images/ORL";
+    }
+}
+
+void DatabasePage::setLabel()
+{
+    pcaModel->setLabel(databasePath.toStdString());
+}
+
 void DatabasePage::showTestImage()
 {
     switch(this->comboBox->currentIndex())
     {
     case 0:
         test_img_path = QFileDialog::getOpenFileName(this, tr("Open Image"),
-                                                 "F:/a/projects/bishe/database/ATT/test", tr("Image Files (*.png *.jpg *.bmp *.tif)"));
+                                                 "F:/a/projects/pcaMat/pcaMat/images/ATTTest", tr("Image Files (*.png *.jpg *.bmp *.tif)"));
         break;
     case 1:
         test_img_path = QFileDialog::getOpenFileName(this, tr("Open Image"),
-                                                 "F:/a/projects/bishe/database/YALE/test", tr("Image Files (*.png *.jpg *.bmp *.tif)"));
+                                                 "F:/a/projects/pcaMat/pcaMat/images/YALETest", tr("Image Files (*.png *.jpg *.bmp *.tif)"));
         break;
     case 2:
         test_img_path = QFileDialog::getOpenFileName(this, tr("Open Image"),
-                                                 "database//ORL//", tr("Image Files (*.png *.jpg *.bmp *.tif)"));
-        break;
-    case 3:
-        test_img_path = QFileDialog::getOpenFileName(this, tr("Open Image"),
-                                                 "database//FERET", tr("Image Files (*.png *.jpg *.bmp *.tif)"));
+                                                 "F:/a/projects/bishe/database/ORL/ORLTest", tr("Image Files (*.png *.jpg *.bmp *.tif)"));
         break;
     }
-
+//    test_img_path = QFileDialog::getOpenFileName(this, tr("Open Image"),
+//                                                 databasePath, tr("Image Files (*.png *.jpg *.bmp *.tif)"));
     if(test_img_path.isEmpty())
     {
         return;
@@ -123,15 +146,14 @@ void DatabasePage::showTestImage()
 
 void DatabasePage::train()
 {
-    string filePath = "F:/a/projects/pcaMat/pcaMat/images/ATT";
-    Mat test = imread(test_img_path.toStdString(), 0);
-    pcaModel = new pca(filePath);
-    pcaModel->setTestData(test);
+    pcaModel = new pca(databasePath.toStdString());
     pcaModel->train();
 }
 
 void DatabasePage::predict()
 {
+    Mat test = imread(test_img_path.toStdString(), 0);
+    pcaModel->setTestData(test);
     pcaModel->predict();
     int predict = pcaModel->getPredictedLabel();
     result_img_label->setText(QString::number(predict));

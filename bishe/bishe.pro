@@ -87,5 +87,4 @@ FORMS    += widget.ui \
     databasesingle.ui \
     databasetotal.ui
 
-RESOURCES += \
-    database/ATT/att.qrc
+RESOURCES +=
