@@ -6,12 +6,14 @@
 #include <math.h>
 #include <io.h>
 
-#include <QMessageBox>
-
 
 bool mySort(double a, double b) {
     return a > b;
 }
+
+//void pca::setDatabasePath(string path) {
+//    this->databasePath = path;
+//}
 
 void pca::setAverageFace() {
     Mat data_tmp;
@@ -177,7 +179,7 @@ void pca::setLabel(string path) {
             label.push_back(i / 11 + 1);
     }
     else if(path == "F:/a/projects/pcaMat/pcaMat/images/ORL") {
-        for (int i = 0; i < 63; i++)
+        for (int i = 0; i < 400; i++)
             label.push_back(i / 10 + 1);
     }
     this->label = label;
@@ -206,7 +208,7 @@ void pca::train() {
     //63 * 10304    10304 * 56
     this->projectedFace = zeroMeanVec * selectedEigen.t();
 
-    setLabel("./images/ATT");
+//    setLabel(databasePath);
     map<int, Mat> averageProjectedFace;
     map<int, Mat> personToTotalFace;//人--脸向量总和
     map<int, int> personToCount;//人--该人的脸图片总张数
@@ -231,8 +233,6 @@ void pca::train() {
     }
 
     this->averageProjectedFace = averageProjectedFace;
-
-    QMessageBox::information(this, tr("finish"), tr("Training finish!"));
 }
 
 //先假设输入的图片一定是人脸

@@ -17,6 +17,7 @@ using namespace std;
 
 class pca {
 private:
+//    string databasePath;
     vector<Mat> originalData;
     Mat data;
     int number;
@@ -34,6 +35,7 @@ public:
     pca(string path);
     ~pca();
 
+//    void setDatabasePath(string path);
     int getPixels();
     void setTestData(Mat data);
     vector<Mat> getOriginalData();

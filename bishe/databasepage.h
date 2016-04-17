@@ -45,6 +45,7 @@ private:
     QGroupBox *result;
     QPushButton *start;
     QLabel *result_string1;
+    QString result_string1_str;
     QLabel *result_string2;
     QLabel *result_img_label;
     QImage *result_img;
@@ -54,7 +55,9 @@ private:
     QHBoxLayout *singleLayout;
 
     QGroupBox *total;
+    QPushButton *total_predict;
     QLabel *total_string;
+    QString total_string_str;
     QVBoxLayout *total_layout;
     QVBoxLayout *totalLayout;
 
@@ -65,10 +68,9 @@ private:
 private slots:
     void setDatabasePath();
     void showTestImage();
-    void setLabel();
     void train();
     void predict();
-
+    void totalPredict();
 };
 
 #endif // DATABASEPAGE_H
