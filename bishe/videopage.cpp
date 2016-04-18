@@ -49,6 +49,7 @@ VideoPage::VideoPage(QWidget *parent) :
 
 VideoPage::~VideoPage()
 {
+    timer->stop();
     delete ui;
 }
 

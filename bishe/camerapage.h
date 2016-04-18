@@ -32,14 +32,14 @@ private:
     QLabel *label;
     QVBoxLayout *layout;
 
-    QTimer *timer; // the timer that will refresh the widget
+    QTimer *timer;
     CvCapture *capture;
 //    cv::VideoCapture *capture;  // to capture video
-    cv::Mat frame; // the frame that we will copy readed images from video
+    cv::Mat frame;
 
 private slots:
     void playVideo();
-    void displayFrame(); // the method that will display video
+    void displayFrame();
 };
 
 #endif // CAMERAPAGE_H

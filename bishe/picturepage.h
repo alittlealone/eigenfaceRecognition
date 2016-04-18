@@ -9,6 +9,10 @@
 #include <QImage>
 #include <QString>
 
+#include <vector>
+
+#include "pca.h"
+
 namespace Ui {
 class PicturePage;
 }
@@ -24,6 +28,10 @@ public:
 private:
     Ui::PicturePage *ui;
 
+    pca *pcaPictureModel;
+    std::vector<int> labelVector;
+
+    QPushButton *setTrainPath;
     QPushButton *open;
     QPushButton *start;
     QLabel *label;
@@ -37,8 +45,11 @@ private:
     int faceNumber;
 
 private slots:
+    void setDatabasePath();
     void showImage();
     void recognize();
+    void labels();
+
 };
 
 #endif // PICTUREPAGE_H
