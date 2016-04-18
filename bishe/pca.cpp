@@ -168,6 +168,10 @@ void pca::setData(Mat data) {
     this->data = data;
 }
 
+void pca::setLabel(vector<int> label) {
+    this->label = label;
+}
+
 void pca::setLabel(string path) {
     vector<int> label;
     if (path == "F:/a/projects/pcaMat/pcaMat/images/ATT") {

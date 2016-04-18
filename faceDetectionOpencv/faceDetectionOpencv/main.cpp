@@ -22,7 +22,7 @@ int main(int argc, char** argv){
 	//Mat imread(const string& filename, int flags=1 )
 	//@param flags    Flags specifying the color type of a loaded image
 	//              CV_LOAD_IMAGE_ANYDEPTH | CV_LOAD_IMAGE_COLOR | CV_LOAD_IMAGE_GRAYSCALE | >0 | =0 | <0
-	image = imread("images/godfather.jpg", CV_LOAD_IMAGE_COLOR);
+	image = imread("images/godfather0.jpg", CV_LOAD_IMAGE_COLOR);
 	namedWindow("original", 1);
 	imshow("original", image);
 

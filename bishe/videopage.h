@@ -10,8 +10,12 @@
 #include <QFileDialog>
 #include <QTimer>
 
-#include <opencv2/highgui/highgui.hpp> //to load video
-#include <opencv2/imgproc/imgproc.hpp> //to manipulate images
+#include <vector>
+
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
+
+#include "pca.h"
 
 namespace Ui {
 class VideoPage;
@@ -28,7 +32,18 @@ public:
 private:
     Ui::VideoPage *ui;
 
+    pca *pcaVideoModel;
+    std::vector<int> labelVector;
+    int im_width;
+    int im_height;
+
+    bool isPause;
+
+    QPushButton *setDatabase;
+    QPushButton *train;
     QPushButton *open;
+    QPushButton *pause;
+    QPushButton *close;
     QString videoPath;
     QHBoxLayout *upLayout;
     QVBoxLayout *layout;
@@ -39,8 +54,13 @@ private:
     cv::Mat frame; // the frame that we will copy readed images from video
 
 private slots:
+    void setDatabasePath();
+    void labels();
+    void trainModel();
     void playVideo();
-    void displayFrame(); // the method that will display video
+    void displayFrame();
+    void pauseVideo();
+    void closeVideo();
 };
 
 #endif // VIDEOPAGE_H

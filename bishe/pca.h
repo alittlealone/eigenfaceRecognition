@@ -42,6 +42,7 @@ public:
     void setOriginalData(vector<Mat> originalData);
     Mat getData();
     void setData(Mat data);
+    void setLabel(vector<int> label);
     void setLabel(string path);
     void setAverageFace();
     void setZeroMeanVec();
