@@ -43,7 +43,7 @@ private:
     QPushButton *train;
     QPushButton *open;
     QPushButton *pause;
-    QPushButton *close;
+//    QPushButton *close;
     QString videoPath;
     QHBoxLayout *upLayout;
     QVBoxLayout *layout;
@@ -60,7 +60,7 @@ private slots:
     void playVideo();
     void displayFrame();
     void pauseVideo();
-    void closeVideo();
+//    void closeVideo();
 };
 
 #endif // VIDEOPAGE_H

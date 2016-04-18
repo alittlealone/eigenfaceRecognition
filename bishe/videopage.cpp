@@ -21,21 +21,21 @@ VideoPage::VideoPage(QWidget *parent) :
     train = new QPushButton(tr("train"));
     open = new QPushButton(tr("Open"));
     pause = new QPushButton(tr("Pause"));
-    close = new QPushButton(tr("Close"));
+//    close = new QPushButton(tr("Close"));
 
     connect(setDatabase, SIGNAL(clicked()), this, SLOT(setDatabasePath()));
     connect(setDatabase, SIGNAL(clicked()), this, SLOT(labels()));
     connect(train, SIGNAL(clicked()), this, SLOT(trainModel()));
     connect(open, SIGNAL(clicked()), this, SLOT(playVideo()));
     connect(pause, SIGNAL(clicked()), this, SLOT(pauseVideo()));
-    connect(close, SIGNAL(clicked()), this, SLOT(closeVideo()));
+//    connect(close, SIGNAL(clicked()), this, SLOT(closeVideo()));
 
     upLayout = new QHBoxLayout;
     upLayout->addWidget(setDatabase);
     upLayout->addWidget(train);
     upLayout->addWidget(open);
     upLayout->addWidget(pause);
-    upLayout->addWidget(close);
+//    upLayout->addWidget(close);
     upLayout->addStretch();
 
     label = new QLabel();
@@ -84,12 +84,16 @@ void VideoPage::playVideo()
                                             "F://", tr("Video Files (*.mkv *.mp4 *.rmvb *.flv)"));
     capture = new cv::VideoCapture(videoPath.toStdString());
     timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(displayFrame())); // connect the timer to the widget and to the method that will execute after every refresh
-    timer->start(30); // set the time of refreshment and start the timer
+    connect(timer, SIGNAL(timeout()), this, SLOT(displayFrame()));
+    timer->start(30);
 }
 
 void VideoPage::displayFrame()
 {
+    if(isPause) {
+        timer->stop();
+    }
+
     cv::CascadeClassifier face_cascade("C:\\Users\\Administrator\\Desktop\\haarcascade_frontalface_alt.xml");
 
     *capture >> frame;
@@ -138,10 +142,5 @@ void VideoPage::displayFrame()
 void VideoPage::pauseVideo()
 {
     isPause = true;
-    capture->release();
 }
 
-void VideoPage::closeVideo()
-{
-
-}
